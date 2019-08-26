@@ -20,8 +20,8 @@ var CustomComponent = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     CustomComponent.prototype.render = function () {
-        return (React.createElement("div", null,
-            React.createElement("h1", null, "A Simple React Component Example with Typescript")));
+        return (React.createElement(React.Fragment, null,
+            React.createElement("h2", null, "A Simple React Component Example with Typescript")));
     };
     return CustomComponent;
 }(React.Component));
