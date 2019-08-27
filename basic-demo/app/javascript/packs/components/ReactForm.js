@@ -19,10 +19,10 @@ var ReactForm = /** @class */ (function (_super) {
     function ReactForm(props) {
         var _this = _super.call(this, props) || this;
         _this.state = {
-            name: '',
+            user: '',
             message: ''
         };
-        _this.handleChange = _this.handleChange.bind(_this); // needed to be able to call this.setState
+        _this.handleChange = _this.handleChange.bind(_this); // needed, to be able to call this.setState
         return _this;
     }
     ReactForm.prototype.handleChange = function (event) {
@@ -35,11 +35,11 @@ var ReactForm = /** @class */ (function (_super) {
     };
     ReactForm.prototype.handleSubmit = function (event) {
         event.preventDefault();
-        console.log(this.state);
+        console.log(event);
     };
     ReactForm.prototype.render = function () {
         return (React.createElement("form", { onSubmit: this.handleSubmit },
-            React.createElement("input", { name: "name", type: "text", onChange: this.handleChange }),
+            React.createElement("input", { name: "user", type: "text", onChange: this.handleChange }),
             React.createElement("input", { name: "message", type: "text", onChange: this.handleChange }),
             React.createElement("input", { type: "submit" })));
     };

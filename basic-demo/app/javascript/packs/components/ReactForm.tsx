@@ -6,7 +6,7 @@ export default class ReactForm extends React.Component
         super(props);
 
         this.state = {
-            name: '',
+            user: '',
             message: ''
         }
 
@@ -30,7 +30,7 @@ export default class ReactForm extends React.Component
     render(){
         return (
             <form onSubmit={this.handleSubmit}>
-                <input name="name" type="text" onChange={this.handleChange}/>
+                <input name="user" type="text" onChange={this.handleChange}/>
                 <input name="message" type="text" onChange={this.handleChange}/>
                 <input type="submit"/>
             </form>
