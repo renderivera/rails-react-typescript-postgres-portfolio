@@ -4,7 +4,8 @@ class Api::V1::MessagesController < ApplicationController
   end
   
   def create (message_params)
-    Message.create(message_params)
+    message = Message.create(message_params)
+    render json: message
   end
 
   private
