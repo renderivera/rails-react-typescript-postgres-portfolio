@@ -57,7 +57,12 @@ var ReactList = /** @class */ (function (_super) {
         return _this;
     }
     ReactList.prototype.componentDidMount = function () {
-        fetch(this.props.all_messages_path).then(this.successCallback, this.failureCallback);
+        var _this = this;
+        this.fetchMessages();
+        this.timer = setInterval(function () { return _this.fetchMessages(); }, 5000);
+    };
+    ReactList.prototype.fetchMessages = function () {
+        fetch(this.props.all_messages_path).then(this.successCallback, this.failureCallback); // drops errors by default, ok for this usecase
     };
     ReactList.prototype.successCallback = function (response) {
         return __awaiter(this, void 0, void 0, function () {

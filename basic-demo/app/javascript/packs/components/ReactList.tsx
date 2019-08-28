@@ -23,9 +23,17 @@ export default class ReactList extends React.Component<IMessageProps, IMessageSt
         this.successCallback = this.successCallback.bind(this); // binding is needed to access state in the callback
     }
 
+    timer:any;
+
     componentDidMount()
     {
-        fetch(this.props.all_messages_path).then(this.successCallback, this.failureCallback);
+        this.fetchMessages();
+        this.timer = setInterval(() => this.fetchMessages(), 5000);
+    }
+
+    fetchMessages()
+    {
+        fetch(this.props.all_messages_path).then(this.successCallback, this.failureCallback);   // drops errors by default, ok for this usecase
     }
 
     async successCallback (response:Response)
