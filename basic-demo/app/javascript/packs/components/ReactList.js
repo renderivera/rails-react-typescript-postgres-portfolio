@@ -58,9 +58,6 @@ var ReactList = /** @class */ (function (_super) {
     }
     ReactList.prototype.componentDidMount = function () {
         fetch(this.props.all_messages_path).then(this.successCallback, this.failureCallback);
-        //fetch(this.props.all_messages_path)
-        //.then((response) => {return response.json()})
-        //.then((data) => {this.setState({ messages: data }) });
     };
     ReactList.prototype.successCallback = function (response) {
         return __awaiter(this, void 0, void 0, function () {
@@ -81,19 +78,22 @@ var ReactList = /** @class */ (function (_super) {
         });
     };
     ReactList.prototype.failureCallback = function (response) {
-        // todo: define error handling behaviour with "fictional" stakeholders
-        throw new Error('call to ' + this.props.all_messages_path + 'unsuccessful');
+        // todo: define error handling behaviour with stakeholders
+        throw new Error('call to ' + this.props.all_messages_path + ' unsuccessful');
     };
     ReactList.prototype.render = function () {
         var messages = this.state;
-        console.log(messages);
         if (messages == null || messages.messages == null)
             return ('');
         var list = messages.messages.map(function (x) {
-            return (React.createElement("div", null,
+            var time = new Date(x.created_at).toLocaleDateString('en-US');
+            return (React.createElement("p", { key: x.id },
                 x.user,
-                ", ",
-                x.message));
+                ":",
+                React.createElement("br", null),
+                x.message,
+                " - ",
+                time));
         });
         return (React.createElement(React.Fragment, null, list));
     };

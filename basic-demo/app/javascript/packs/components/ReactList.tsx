@@ -4,6 +4,7 @@ interface IMessage {
     id: number;
     user: string;
     message: string;
+    created_at: Date;
 }
 
 interface IMessageState {
@@ -41,8 +42,8 @@ export default class ReactList extends React.Component<IMessageProps, IMessageSt
 
     failureCallback (response:Response)
     {
-        // todo: define error handling behaviour with "fictional" stakeholders
-        throw new Error('call to ' + this.props.all_messages_path + 'unsuccessful');
+        // todo: define error handling behaviour with stakeholders
+        throw new Error('call to ' + this.props.all_messages_path + ' unsuccessful');
     }
 
 
@@ -50,17 +51,18 @@ export default class ReactList extends React.Component<IMessageProps, IMessageSt
     {
         var messages = this.state as IMessageState;
 
-        console.log(messages);
-
         if(messages == null || messages.messages == null)
             return('');
 
 
         var list = messages.messages.map(x=>{
+                    var time = new Date(x.created_at).toLocaleDateString('en-US');
+
                     return(
-                        <div>
-                            {x.user}, {x.message}
-                        </div>
+                        <p key={x.id}>
+                            {x.user}:<br/>
+                            {x.message} - {time}
+                        </p>
                     )
                 }
             );
