@@ -53,7 +53,7 @@ var ReactForm = /** @class */ (function (_super) {
     __extends(ReactForm, _super);
     function ReactForm(props) {
         var _this = _super.call(this, props) || this;
-        _this.handleChangeUser = _this.handleChangeUser.bind(_this); // needed, to be able to call this.setState
+        _this.handleChangeUser = _this.handleChangeUser.bind(_this); // needed to be able to call this.; react team says that's the most performant way
         _this.handleChangeMessage = _this.handleChangeMessage.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.state = {

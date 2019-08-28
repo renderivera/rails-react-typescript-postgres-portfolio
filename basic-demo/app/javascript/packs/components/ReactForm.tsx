@@ -14,7 +14,7 @@ export default class ReactForm extends React.Component<IFormProps, IFormState>
     constructor(props:any){
         super(props);
 
-        this.handleChangeUser = this.handleChangeUser.bind(this); // needed, to be able to call this.setState
+        this.handleChangeUser = this.handleChangeUser.bind(this); // needed to be able to call this.; react team says that's the most performant way
         this.handleChangeMessage = this.handleChangeMessage.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
