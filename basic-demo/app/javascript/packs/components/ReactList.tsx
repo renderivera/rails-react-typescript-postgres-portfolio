@@ -1,23 +1,11 @@
 import * as React from 'react';
+import { IMessage } from './IMessage';
+import { IComponentProps } from './IComponentProps';
+import { IMessages } from './IMessages';
 
-interface IMessage {
-    id: number;
-    user: string;
-    message: string;
-    created_at: Date;
-}
-
-interface IMessageState {
-    messages: Array<IMessage>;
-}
-
-interface IMessageProps {
-    all_messages_path : string;
-}
-
-export default class ReactList extends React.Component<IMessageProps, IMessageState>
+export default class ReactList extends React.Component<IComponentProps, IMessages>
 {
-    constructor(props:IMessageProps)
+    constructor(props:IComponentProps)
     {
         super(props);
         this.successCallback = this.successCallback.bind(this); // binding is needed to access state in the callback
@@ -33,7 +21,7 @@ export default class ReactList extends React.Component<IMessageProps, IMessageSt
 
     fetchMessages()
     {
-        fetch(this.props.all_messages_path).then(this.successCallback, this.failureCallback);   // drops errors by default, ok for this usecase
+        fetch(this.props.fetch_data_api_path).then(this.successCallback, this.failureCallback);   // drops errors by default, ok for this usecase
     }
 
     async successCallback (response:Response)
@@ -51,13 +39,13 @@ export default class ReactList extends React.Component<IMessageProps, IMessageSt
     failureCallback (response:Response)
     {
         // todo: define error handling behaviour with stakeholders
-        throw new Error('call to ' + this.props.all_messages_path + ' unsuccessful');
+        throw new Error('call to ' + this.props.fetch_data_api_path + ' unsuccessful');
     }
 
 
     render ()
     {
-        var messages = this.state as IMessageState;
+        var messages = this.state as IMessages;
 
         if(messages == null || messages.messages == null)
             return('');

@@ -1,15 +1,8 @@
 import * as React from 'react';
+import { IMessage } from './IMessage';
+import { IComponentProps } from './IComponentProps';
 
-interface IFormProps {
-    post_to_path : string;
-}
-
-interface IFormState {
-    user : string;
-    message : string;
-}
-
-export default class ReactForm extends React.Component<IFormProps, IFormState>
+export default class ReactForm extends React.Component<IComponentProps, IMessage>
 {    
     constructor(props:any){
         super(props);
@@ -41,12 +34,19 @@ export default class ReactForm extends React.Component<IFormProps, IFormState>
 
         console.log(json);
 
-        fetch(this.props.post_to_path, {
-            method: 'post',
-            body: json,
-            headers: { 'Content-type': 'application/json' }
-           })
-           .then(this.successCallback, this.failureCallback);  
+        try
+        {
+            fetch(this.props.fetch_data_api_path, {
+                method: 'post',
+                body: json,
+                headers: { 'Content-type': 'application/json' }
+               })
+               .then(this.successCallback, this.failureCallback);  
+        }
+        catch(error)
+        {
+            //define error handling with stakeholders; ignore for now
+        }
     
     }
 
@@ -60,7 +60,7 @@ export default class ReactForm extends React.Component<IFormProps, IFormState>
 
     failureCallback (response:Response)
     {
-        throw new Error('call to ' + this.props.post_to_path + ' unsuccessful');
+        throw new Error('call to ' + this.props.fetch_data_api_path + ' unsuccessful');
     }
 
 
