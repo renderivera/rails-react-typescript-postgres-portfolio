@@ -62,7 +62,7 @@ var ReactList = /** @class */ (function (_super) {
         this.timer = setInterval(function () { return _this.fetchMessages(); }, 5000);
     };
     ReactList.prototype.fetchMessages = function () {
-        fetch(this.props.all_messages_path).then(this.successCallback, this.failureCallback); // drops errors by default, ok for this usecase
+        fetch(this.props.fetch_data_api_path).then(this.successCallback, this.failureCallback); // drops errors by default, ok for this usecase
     };
     ReactList.prototype.successCallback = function (response) {
         return __awaiter(this, void 0, void 0, function () {
@@ -84,7 +84,7 @@ var ReactList = /** @class */ (function (_super) {
     };
     ReactList.prototype.failureCallback = function (response) {
         // todo: define error handling behaviour with stakeholders
-        throw new Error('call to ' + this.props.all_messages_path + ' unsuccessful');
+        throw new Error('call to ' + this.props.fetch_data_api_path + ' unsuccessful');
     };
     ReactList.prototype.render = function () {
         var messages = this.state;

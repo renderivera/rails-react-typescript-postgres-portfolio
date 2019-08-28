@@ -74,12 +74,17 @@ var ReactForm = /** @class */ (function (_super) {
         var newMessage = { message: { user: this.state.user, message: this.state.message } };
         var json = JSON.stringify(newMessage);
         console.log(json);
-        fetch(this.props.post_to_path, {
-            method: 'post',
-            body: json,
-            headers: { 'Content-type': 'application/json' }
-        })
-            .then(this.successCallback, this.failureCallback);
+        try {
+            fetch(this.props.fetch_data_api_path, {
+                method: 'post',
+                body: json,
+                headers: { 'Content-type': 'application/json' }
+            })
+                .then(this.successCallback, this.failureCallback);
+        }
+        catch (error) {
+            //define error handling with stakeholders; ignore for now
+        }
     };
     ReactForm.prototype.successCallback = function (response) {
         return __awaiter(this, void 0, void 0, function () {
@@ -98,7 +103,7 @@ var ReactForm = /** @class */ (function (_super) {
         });
     };
     ReactForm.prototype.failureCallback = function (response) {
-        throw new Error('call to ' + this.props.post_to_path + ' unsuccessful');
+        throw new Error('call to ' + this.props.fetch_data_api_path + ' unsuccessful');
     };
     ReactForm.prototype.render = function () {
         return (React.createElement("form", { onSubmit: this.handleSubmit },
