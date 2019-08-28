@@ -3,7 +3,7 @@ class Api::V1::MessagesController < ApplicationController
     render json: Message.all
   end
   
-  def create (message_params)
+  def create
     message = Message.create(message_params)
     render json: message
   end
