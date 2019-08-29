@@ -69,49 +69,68 @@ var ReactForm = /** @class */ (function (_super) {
         this.setState({ message: event.target.value });
     };
     ReactForm.prototype.handleSubmit = function (event) {
-        console.log('submitting');
-        event.preventDefault();
-        var newMessage = { message: { user: this.state.user, message: this.state.message } };
-        var json = JSON.stringify(newMessage);
-        console.log(json);
-        try {
-            fetch(this.props.fetch_data_api_path, {
-                method: 'post',
-                body: json,
-                headers: { 'Content-type': 'application/json' }
-            })
-                .then(this.successCallback, this.failureCallback);
-        }
-        catch (error) {
-            //define error handling with stakeholders; ignore for now
-        }
-    };
-    ReactForm.prototype.successCallback = function (response) {
         return __awaiter(this, void 0, void 0, function () {
-            var json;
+            var newMessage, json, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log('success');
-                        return [4 /*yield*/, response.json()];
+                        console.log('submitting');
+                        event.preventDefault();
+                        newMessage = { message: { user: this.state.user, message: this.state.message } };
+                        json = JSON.stringify(newMessage);
+                        console.log(json);
+                        _a.label = 1;
                     case 1:
-                        json = _a.sent();
-                        alert('message was created successfully.' + json);
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, fetch(this.props.fetch_data_api_path, {
+                                method: 'post',
+                                body: json,
+                                headers: { 'Content-type': 'application/json' }
+                            })
+                                .then(this.successCallback, this.failureCallback)];
+                    case 2:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        //define error handling with stakeholders; ignore for now
+                        throw new Error(error_1);
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ReactForm.prototype.successCallback = function (response) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, response.json()];
+                    case 1:
+                        _a.sent();
+                        console.log('success');
                         return [2 /*return*/];
                 }
             });
         });
     };
     ReactForm.prototype.failureCallback = function (response) {
-        throw new Error('call to ' + this.props.fetch_data_api_path + ' unsuccessful');
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = Error.bind;
+                        return [4 /*yield*/, response.text()];
+                    case 1: throw new (_a.apply(Error, [void 0, _b.sent()]))();
+                }
+            });
+        });
     };
     ReactForm.prototype.render = function () {
         return (React.createElement("form", { onSubmit: this.handleSubmit },
-            React.createElement("p", null,
-                React.createElement("input", { name: "user", type: "text", onChange: this.handleChangeUser, placeholder: "enter your name" }),
-                React.createElement("br", null),
-                React.createElement("input", { name: "message", type: "text", onChange: this.handleChangeMessage, placeholder: "enter your message" })),
-            React.createElement("input", { type: "submit" })));
+            React.createElement("input", { className: "grid user", name: "user", type: "text", placeholder: "enter your name", onChange: this.handleChangeUser }),
+            React.createElement("input", { className: "grid message", name: "message", type: "text", placeholder: "enter your message", onChange: this.handleChangeMessage }),
+            React.createElement("input", { className: "grid", name: "submitButton", type: "submit" })));
     };
     return ReactForm;
 }(React.Component));

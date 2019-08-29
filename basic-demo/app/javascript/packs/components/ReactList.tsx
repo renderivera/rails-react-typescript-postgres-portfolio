@@ -55,18 +55,19 @@ export default class ReactList extends React.Component<IComponentProps, IMessage
                     var time = new Date(x.created_at).toLocaleDateString('en-US');
 
                     return(
-                        <p key={x.id}>
-                            {x.user}:<br/>
-                            {x.message} - {time}
-                        </p>
+                        <li key={x.id} className="messageContainer">
+                            <div className="grid user">{x.user}</div>
+                            <div className="grid message">{x.message}</div>
+                            <div className="grid time">{time}</div>
+                        </li>
                     )
                 }
             );
 
         return(
-            <React.Fragment>
+            <ul className="allMessagesList">
                 {list}
-            </React.Fragment>
+            </ul>
         );
     }
 

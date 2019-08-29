@@ -24,19 +24,19 @@ export default class ReactForm extends React.Component<IComponentProps, IMessage
         this.setState({message: event.target.value });
     }
 
-    handleSubmit(event:any){
+    async handleSubmit(event:any){
         console.log('submitting');
 
         event.preventDefault();
         
         var newMessage = {message: {user: this.state.user, message: this.state.message}};
-        let json = JSON.stringify(newMessage);
+        var json = JSON.stringify(newMessage);
 
         console.log(json);
 
         try
         {
-            fetch(this.props.fetch_data_api_path, {
+            await fetch(this.props.fetch_data_api_path, {
                 method: 'post',
                 body: json,
                 headers: { 'Content-type': 'application/json' }
@@ -46,34 +46,29 @@ export default class ReactForm extends React.Component<IComponentProps, IMessage
         catch(error)
         {
             //define error handling with stakeholders; ignore for now
+            throw new Error(error);
         }
     
     }
 
     async successCallback (response:Response)
     {
+        await response.json();
         console.log('success');
-
-        var json = await response.json();
-        alert('message was created successfully.' + json);
     }
 
-    failureCallback (response:Response)
+    async failureCallback (response:Response)
     {
-        throw new Error('call to ' + this.props.fetch_data_api_path + ' unsuccessful');
+        throw new Error(await response.text());
     }
 
 
     render(){
         return (
-            <form onSubmit={this.handleSubmit}>
-                <p>
-                    <input name="user" type="text" onChange={this.handleChangeUser} placeholder="enter your name"/>
-                    <br/>
-                    <input name="message" type="text" onChange={this.handleChangeMessage} placeholder="enter your message"/>
-                </p>
-
-                <input type="submit"/>
+            <form onSubmit={this.handleSubmit}>                
+                <input className="grid user" name="user" type="text" placeholder="enter your name" onChange={this.handleChangeUser}/>
+                <input className="grid message" name="message" type="text" placeholder="enter your message" onChange={this.handleChangeMessage}/>
+                <input className="grid" name="submitButton" type="submit"/>
             </form>
         );
     }

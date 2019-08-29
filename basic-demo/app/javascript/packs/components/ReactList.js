@@ -92,15 +92,12 @@ var ReactList = /** @class */ (function (_super) {
             return ('');
         var list = messages.messages.map(function (x) {
             var time = new Date(x.created_at).toLocaleDateString('en-US');
-            return (React.createElement("p", { key: x.id },
-                x.user,
-                ":",
-                React.createElement("br", null),
-                x.message,
-                " - ",
-                time));
+            return (React.createElement("li", { key: x.id, className: "messageContainer" },
+                React.createElement("div", { className: "grid user" }, x.user),
+                React.createElement("div", { className: "grid message" }, x.message),
+                React.createElement("div", { className: "grid time" }, time)));
         });
-        return (React.createElement(React.Fragment, null, list));
+        return (React.createElement("ul", { className: "allMessagesList" }, list));
     };
     return ReactList;
 }(React.Component));
