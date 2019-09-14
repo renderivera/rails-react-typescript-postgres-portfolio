@@ -1,0 +1,9 @@
+entrypoint: bundle exec rackup --port $PORT
+env: flex
+runtime: ruby
+
+env_variables:
+  SECRET_KEY_BASE: a70db15cc26cbacb2ad6f338589ae98173c3fdce17013e8a1d1fe71f53e706aa99768487cacff32bc5b8396f1edb4be0ded22e6b30daece13c66ceb2b0488a0a
+
+beta_settings:
+  cloud_sql_instances: basic-rails-react-chat:europe-west1:basicdb

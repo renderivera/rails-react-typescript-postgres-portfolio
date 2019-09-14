@@ -83,3 +83,4 @@ test:
 production:
   <<: *default
   database: basic-demo_production
+  host: "/cloudsql/basic-rails-react-chat:europe-west1:basicdb"
